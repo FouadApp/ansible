@@ -1,0 +1,19 @@
+---
+- name: Installation des serveurs web
+  hosts: localhost
+  remote_user: root
+  tasks:
+
+   - name: Import InfluxDB GPG signing key
+     apt_key: url=https://repos.influxdata.com/influxdb.key state=present
+   - name: Add InfluxDB repository
+     apt_repository: repo='deb https://repos.influxdata.com/ubuntu trusty stable' state=present
+   - name: Install InfluxDB packages
+     apt: name=influxdb state=present
+   
+   - name: Start the InfluxDB service
+     service: name=influxd state=restarted
+   - name: Install telegraf packages
+     apt: name=telegraf state=present
+
+   
