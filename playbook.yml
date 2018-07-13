@@ -1,5 +1,5 @@
 ---
-- name: Installation des serveurs web
+- name: Installation influxDB grafana telegraf
   hosts: localhost
   remote_user: root
   tasks:
@@ -13,7 +13,12 @@
    
    - name: Start the InfluxDB service
      service: name=influxd state=restarted
+
    - name: Install telegraf packages
      apt: name=telegraf state=present
 
-   
+   - name: Install grafana packages
+     apt: name=grafana state=present
+
+   - name: Start grafana
+     service: name=grafana state=restarted
